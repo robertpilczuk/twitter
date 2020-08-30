@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
-
+    private final static String CURRENT_PAGE = "currentPage";
     private UserService userService;
 
     @Override
@@ -32,7 +32,14 @@ public class LoginServlet extends HttpServlet {
             //wrzucamy usera do sesji i sprawdzamy czy jest
             HttpSession session = req.getSession();
             session.setAttribute("user", tbUser);
-            resp.sendRedirect("index.jsp");
+
+            final String currentPage = (String) session.getAttribute(CURRENT_PAGE);
+            if (currentPage != null) {
+                session.removeAttribute(CURRENT_PAGE);
+                resp.sendRedirect(currentPage);
+            } else {
+                resp.sendRedirect("index.jsp");
+            }
         }
     }
 }
