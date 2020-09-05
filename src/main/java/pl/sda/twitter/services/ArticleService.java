@@ -14,7 +14,7 @@ public class ArticleService {
         articleDao.addNewArticle(tbUser, content);
     }
 
-    public List getArticles() {
+    public List<TbArticle> getArticles() {
         final List<TbArticle> articles = articleDao.getArticles();
         articles.sort(Comparator.comparing(TbArticle::getId).reversed());
         return articles;
