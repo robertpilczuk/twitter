@@ -19,4 +19,8 @@ public class ArticleService {
         articles.sort(Comparator.comparing(TbArticle::getId).reversed());
         return articles;
     }
+
+    public TbArticle getArticleById(Integer articleId) {
+        return articleDao.getArticleById(articleId);
+    }
 }

@@ -12,6 +12,18 @@ articleApp.controller('articleController', function ($scope, $http) {
                 }
             );
         };
-    }
+        $scope.articleById = function (articleId) {
+            $http({
+                method: 'GET',
+                url: 'rest/articles/' + articleId,
+                params: {}
+            }).then(
+                function (response) {
+                    $scope.article = response.data;
+                }
+            );
+        };
 
+
+    }
 );

@@ -16,17 +16,26 @@ import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-@WebServlet(urlPatterns = "/rest/articles/")
+@WebServlet(urlPatterns = "/rest/articles/*")
 public class ArticlesServlet extends HttpServlet {
     private ArticleService articleService = new ArticleService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final List<TbArticle> articles = articleService.getArticles();
-        sendAsJson(articles, resp);
+        final String pathInfo = req.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            final List<TbArticle> articles = articleService.getArticles();
+            sendAsJson(articles, resp);
+        } else {
+            //można w try integera wrzucić zeby obsłużyć wyjątek jak wpisze się article/5eornbreo -> wtedy wychodzi błąd 500!!!
+            //w trycatch mozna to ogarnąć
+            final String articleId = pathInfo.replace("/", "");
+            final TbArticle article = articleService.getArticleById(Integer.parseInt(articleId));
+            sendAsJson(article, resp);
+        }
     }
 
-    private void sendAsJson(List models, HttpServletResponse response) throws IOException {
+    private void sendAsJson(Object models, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding(UTF_8.name());
         final Gson gson = new GsonBuilder()

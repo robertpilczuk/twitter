@@ -12,7 +12,7 @@ import java.util.List;
 public class ArticleDao {
 
     public void addNewArticle(TbUser tbUser, String content) {
-        try(final Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (final Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
 
             final TbArticle tbArticle = new TbArticle();
@@ -29,6 +29,16 @@ public class ArticleDao {
             final Query q = session.createQuery("select o from " + TbArticle.class.getName() + " o");
             session.getTransaction().commit();
             return q.getResultList();
+        }
+    }
+
+    public TbArticle getArticleById(Integer articleId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            session.beginTransaction();
+            final Query q = session.createQuery("select o from " + TbArticle.class.getName() + " o where o.id =:id");
+            q.setParameter("id", articleId);
+            session.getTransaction().commit();
+            return (TbArticle) q.getSingleResult();
         }
     }
 }
