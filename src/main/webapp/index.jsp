@@ -1,8 +1,4 @@
-<%@ page import="pl.sda.twitter.persistance.entities.TbArticle" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="articleService" scope="request" class="pl.sda.twitter.services.ArticleService"/>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -37,21 +33,6 @@
             </div>
         </div>
     </div>
-    <%--    <%--%>
-    <%--        List<TbArticle> articles = articleService.getArticles();--%>
-    <%--        pageContext.setAttribute("articles", articles);--%>
-    <%--    %>--%>
-    <%--    <c:forEach items="${articles}" var="article">--%>
-    <%--        <div class="container">--%>
-    <%--            <div class="row">--%>
-    <%--                <div>--%>
-    <%--                    <h2>Heading</h2>--%>
-    <%--                    <p>${article.getContent()}</p>--%>
-    <%--                    <p><a class="btn btn-secondary" href="article?id=${article.getId()}" role="button">View details &raquo;</a></p>--%>
-    <%--                </div>--%>
-    <%--            </div>--%>
-    <%--        </div>--%>
-    <%--    </c:forEach>--%>
 </main>
 <jsp:include page="include/footer.jsp"/>
 </body>
